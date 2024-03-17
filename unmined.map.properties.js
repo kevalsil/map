@@ -8,7 +8,7 @@ var UnminedMapProperties = {
     minRegionZ: -4,
     maxRegionX: 5,
     maxRegionZ: 4,
-    worldName: "세이버맵",
+    worldName: "DOSI - 사본",
     background: "",
     markers: new Array()
 }
