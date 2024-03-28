@@ -32,6 +32,13 @@
     <script src="https://kit.fontawesome.com/dbb41a74f1.js" crossorigin="anonymous"></script>
 
     <style type="text/css">
+        @font-face {
+            font-family: 'YClover-Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/YClover-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
         html,
         body {
             width: 100%;
@@ -45,29 +52,31 @@
             flex-flow: column wrap;
             justify-content: center;
             align-content: center;
-            height: 78px;
+            height: auto;
             position: relative; /* 부모 요소에 position을 추가합니다. */
         }
 
-        header h1 {
-            font-size: 1.5em;
-            text-align: center;
-            margin: 3px;
+        header div {
+            margin: 0px;
             display: flex; /* 내부 요소들을 가로로 정렬하기 위해 flex를 사용합니다. */
             justify-content: center;
             align-items: center; /* 내부 요소들을 세로로 중앙 정렬합니다. */
         }
 
-        header h1 img {
+        header div div {
+            padding: 5px 0 0 0;
+            font-family: 'YClover-Bold';
+            font-size: 1.5em;
+            color: #3CB371;
+            text-align: center;
+        }
+
+        header div img {
             z-index: 3;
             position: absolute;
             width: 20px;
             left: 15px;
             cursor: pointer;
-        }
-
-        header h1 div{
-            width: auto;
         }
 
         header #search-window{
@@ -156,10 +165,10 @@
 
 <body>
     <header>
-        <h1>
+        <div>
             <img src="images/menu.png" alt="메뉴" id="menuBtn">
             <div>SAVER MAP</div>
-        </h1>
+        </div>
         <input type="text" id="search-window" name="q" placeholder="장소, 주소, 버스 검색">
     </header>
 
