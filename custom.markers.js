@@ -1523,7 +1523,7 @@ UnminedCustomMarkers = {
             image: "pinImages/building.pin.svg",
             imageAnchor: [0.5, 0.5],
             imageScale: 0.05,
-            text: "BIFC",
+            text: "EIFC",
             textColor: "white",
             textStrokeColor: "black",
             textStrokeWidth: 3,
@@ -1575,7 +1575,7 @@ UnminedCustomMarkers = {
         },
         {
             x: 2037,
-            z: 1423,
+            z: 1478,
             image: "pinImages/building.pin.svg",
             imageAnchor: [0.5, 0.5],
             imageScale: 0.05,
