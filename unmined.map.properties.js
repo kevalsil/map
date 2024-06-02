@@ -6,7 +6,7 @@ var UnminedMapProperties = {
     imageFormat: "jpeg",
     minRegionX: -5,
     minRegionZ: -5,
-    maxRegionX: 5,
+    maxRegionX: 6,
     maxRegionZ: 4,
     worldName: "DOSI - 사본",
     background: "",
