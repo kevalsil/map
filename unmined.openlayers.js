@@ -190,7 +190,7 @@ class Unmined {
         for (var i = 0; i < markers.length; i++) {
             var item = markers[i];
 
-            console.log(`Marker: ${item.text}, MinZoom: ${item.minZoom}, MaxZoom: ${item.maxZoom}, CurrentZoom: ${currentZoom}`); // 디버깅용 콘솔 로그
+            //console.log(`Marker: ${item.text}, MinZoom: ${item.minZoom}, MaxZoom: ${item.maxZoom}, CurrentZoom: ${currentZoom}`); // 디버깅용 콘솔 로그
 
             if ((item.minZoom === undefined || currentZoom >= item.minZoom) &&
                 (item.maxZoom === undefined || currentZoom <= item.maxZoom)) {
