@@ -132,9 +132,10 @@ class Unmined {
 
         var map = new ol.Map({
             target: mapId,
-            controls: ol.control.defaults().extend([
-                mousePositionControl
-            ]),
+            interactions: ol.interaction.defaults({ 
+                pinchZoom: true,
+                mouseWheelZoom: true
+            }),
             layers: [
                 unminedLayer,                
                 /*
