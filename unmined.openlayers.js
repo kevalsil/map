@@ -166,7 +166,7 @@ class Unmined {
 
             map.getView().on('change:resolution', () => {
                 var currentZoom = map.getView().getZoom();
-                console.log("Current Zoom Level:", currentZoom); // 디버깅용 콘솔 로그
+                //console.log("Current Zoom Level:", currentZoom); // 디버깅용 콘솔 로그
                 markersLayer.getSource().clear();
                 var newMarkersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection, currentZoom);
                 map.removeLayer(markersLayer);
@@ -188,7 +188,7 @@ class Unmined {
         for (var i = 0; i < markers.length; i++) {
             var item = markers[i];
 
-            console.log(`Marker: ${item.text}, MinZoom: ${item.minZoom}, MaxZoom: ${item.maxZoom}, CurrentZoom: ${currentZoom}`); // 디버깅용 콘솔 로그
+            //console.log(`Marker: ${item.text}, MinZoom: ${item.minZoom}, MaxZoom: ${item.maxZoom}, CurrentZoom: ${currentZoom}`); // 디버깅용 콘솔 로그
 
             if ((item.minZoom === undefined || currentZoom >= item.minZoom) &&
                 (item.maxZoom === undefined || currentZoom <= item.maxZoom)) {
