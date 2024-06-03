@@ -132,10 +132,9 @@ class Unmined {
 
         var map = new ol.Map({
             target: mapId,
-            interactions: ol.interaction.defaults({ 
-                pinchZoom: true,
-                mouseWheelZoom: true
-            }),
+            controls: ol.control.defaults().extend([
+                mousePositionControl
+            ]),
             layers: [
                 unminedLayer,                
                 /*
@@ -167,12 +166,14 @@ class Unmined {
 
             map.getView().on('change:resolution', () => {
                 var currentZoom = map.getView().getZoom();
-                //console.log("Current Zoom Level:", currentZoom); // 디버깅용 콘솔 로그
-                markersLayer.getSource().clear();
-                var newMarkersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection, currentZoom);
-                map.removeLayer(markersLayer);
-                markersLayer = newMarkersLayer;
-                map.addLayer(markersLayer);
+                if(currentZoom % 1 == 0){
+                    //console.log("Current Zoom Level:", currentZoom); // 디버깅용 콘솔 로그
+                    markersLayer.getSource().clear();
+                    var newMarkersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection, currentZoom);
+                    map.removeLayer(markersLayer);
+                    markersLayer = newMarkersLayer;
+                    map.addLayer(markersLayer);
+                }
             });
         }
         
@@ -189,7 +190,7 @@ class Unmined {
         for (var i = 0; i < markers.length; i++) {
             var item = markers[i];
 
-            //console.log(`Marker: ${item.text}, MinZoom: ${item.minZoom}, MaxZoom: ${item.maxZoom}, CurrentZoom: ${currentZoom}`); // 디버깅용 콘솔 로그
+            console.log(`Marker: ${item.text}, MinZoom: ${item.minZoom}, MaxZoom: ${item.maxZoom}, CurrentZoom: ${currentZoom}`); // 디버깅용 콘솔 로그
 
             if ((item.minZoom === undefined || currentZoom >= item.minZoom) &&
                 (item.maxZoom === undefined || currentZoom <= item.maxZoom)) {
