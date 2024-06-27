@@ -161,20 +161,8 @@ class Unmined {
         });
 
         if (options.markers) {
-            var markersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection, map.getView().getZoom());
+            var markersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection);
             map.addLayer(markersLayer);
-
-            map.getView().on('change:resolution', () => {
-                var currentZoom = map.getView().getZoom();
-                if(currentZoom % 1 == 0){
-                    //console.log("Current Zoom Level:", currentZoom); // 디버깅용 콘솔 로그
-                    markersLayer.getSource().clear();
-                    var newMarkersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection, currentZoom);
-                    map.removeLayer(markersLayer);
-                    markersLayer = newMarkersLayer;
-                    map.addLayer(markersLayer);
-                }
-            });
         }
         
         if (options.background){
@@ -184,60 +172,53 @@ class Unmined {
         this.openlayersMap = map;
     }
 
-    createMarkersLayer(markers, dataProjection, viewProjection, currentZoom) {
+    createMarkersLayer(markers, dataProjection, viewProjection) {
         var features = [];
 
         for (var i = 0; i < markers.length; i++) {
             var item = markers[i];
+            var longitude = item.x;
+            var latitude = item.z;
 
-            //console.log(`Marker: ${item.text}, MinZoom: ${item.minZoom}, MaxZoom: ${item.maxZoom}, CurrentZoom: ${currentZoom}`); // 디버깅용 콘솔 로그
+            var feature = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
+            });
 
-            if ((item.minZoom === undefined || currentZoom >= item.minZoom) &&
-                (item.maxZoom === undefined || currentZoom <= item.maxZoom)) {
-                
-                var longitude = item.x;
-                var latitude = item.z;
+            var style = new ol.style.Style();
+            if (item.image)
+                style.setImage(new ol.style.Icon({
+                    src: item.image,
+                    anchor: item.imageAnchor,
+                    scale: item.imageScale
+                }));
 
-                var feature = new ol.Feature({
-                    geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
-                });
-
-                var style = new ol.style.Style();
-                if (item.image)
-                    style.setImage(new ol.style.Icon({
-                        src: item.image,
-                        anchor: item.imageAnchor,
-                        scale: item.imageScale
-                    }));
-
-                if (item.text) {                               
-                    style.setText(new ol.style.Text({
-                        text: item.text,
-                        font: item.font,
-                        offsetX: item.offsetX,
-                        offsetY: item.offsetY,
-                        fill: item.textColor ? new ol.style.Fill({
-                            color: item.textColor
-                        }) : null,
-                        padding: item.textPadding ?? [2, 4, 2, 4],
-                        stroke: item.textStrokeColor ? new ol.style.Stroke({
-                            color: item.textStrokeColor,
-                            width: item.textStrokeWidth
-                        }) : null,
-                        backgroundFill: item.textBackgroundColor ? new ol.style.Fill({
-                            color: item.textBackgroundColor
-                        }) : null,
-                        backgroundStroke: item.textBackgroundStrokeColor ? new ol.style.Stroke({
-                            color: item.textBackgroundStrokeColor,
-                            width: item.textBackgroundStrokeWidth
-                        }) : null,
-                    }));
-                }
-
-                feature.setStyle(style);
-
-                features.push(feature);
+            if (item.text) {                               
+                style.setText(new ol.style.Text({
+                    text: item.text,
+                    font: item.font,
+                    offsetX: item.offsetX,
+                    offsetY: item.offsetY,
+                    fill: item.textColor ? new ol.style.Fill({
+                        color: item.textColor
+                    }) : null,
+                    padding: item.textPadding ?? [2, 4, 2, 4],
+                    stroke: item.textStrokeColor ? new ol.style.Stroke({
+                        color: item.textStrokeColor,
+                        width: item.textStrokeWidth
+                    }) : null,
+                    backgroundFill: item.textBackgroundColor ? new ol.style.Fill({
+                        color: item.textBackgroundColor
+                    }) : null,
+                    backgroundStroke: item.textBackgroundStrokeColor ? new ol.style.Stroke({
+                        color: item.textBackgroundStrokeColor,
+                        width: item.textBackgroundStrokeWidth
+                    }) : null,
+                }));
             }
+
+            feature.setStyle(style);
+
+            features.push(feature);
         }
 
         var vectorSource = new ol.source.Vector({
@@ -251,20 +232,20 @@ class Unmined {
     }
     
     defaultPlayerMarkerStyle = {
-        image: "playerimages/default.png",
-        imageAnchor: [0.5, 0.5],
-        imageScale: 0.25,
+            image: "playerimages/default.png",
+            imageAnchor: [0.5, 0.5],
+            imageScale: 0.25,
 
-        textColor: "white",
-        offsetX: 0,
-        offsetY: 20,
-        font: "14px Arial",
-        //textStrokeColor: "black",
-        //textStrokeWidth: 2,
-        textBackgroundColor: "#00000088",
-        //textBackgroundStrokeColor: "black",
-        //textBackgroundStrokeWidth: 1,
-        textPadding: [2, 4, 2, 4],
+            textColor: "white",
+            offsetX: 0,
+            offsetY: 20,
+            font: "14px Arial",
+            //textStrokeColor: "black",
+            //textStrokeWidth: 2,
+            textBackgroundColor: "#00000088",
+            //textBackgroundStrokeColor: "black",
+            //textBackgroundStrokeWidth: 1,
+            textPadding: [2, 4, 2, 4],
     }
 
     playerToMarker(player) {
