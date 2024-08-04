@@ -5,7 +5,7 @@ var UnminedMapProperties = {
     defaultZoom: 0,
     imageFormat: "jpeg",
     minRegionX: -5,
-    minRegionZ: -5,
+    minRegionZ: -8,
     maxRegionX: 7,
     maxRegionZ: 4,
     worldName: "DOSI - 사본",
