@@ -5,10 +5,10 @@ var UnminedMapProperties = {
     defaultZoom: 0,
     imageFormat: "jpeg",
     minRegionX: -5,
-    minRegionZ: -8,
+    minRegionZ: -10,
     maxRegionX: 7,
     maxRegionZ: 4,
-    worldName: "DOSI - 사본",
+    worldName: "SOOMIN",
     background: "",
     markers: new Array()
 }
